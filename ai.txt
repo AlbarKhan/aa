@@ -1,0 +1,170 @@
+.................................................................................................................//PRACTICAL 5 START//......................................................................................................................
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
+
+plt.style.use('ggplot')
+
+df = pd.read_csv('diabetes.csv')
+#df.head()
+#df.shape
+#df.dtype
+x = df.drop ('Outcome',axis=1).values
+y = df['Outcome'].values
+
+x_train, x_test, y_train,y_test = train_test_split(x,y,test_size=0.4,random_state=42,shuffle=True)
+
+neighbors = np.arange(1,9)
+train_accuracy = np.empty(len(neighbors))
+test_accuracy = np.empty(len(neighbors))
+
+for i,k in enumerate(neighbors):
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(x_train, y_train)
+    train_accuracy[i] = knn.score(x_train, y_train)
+    test_accuracy[i] = knn.score(x_test, y_test)
+knn =KNeighborsClassifier(n_neighbors=7)
+knn.fit(x_train, y_train)
+s = knn.score(x_test, y_test)
+print(s)
+
+y_pred = knn.predict(x_test)
+confusion_matrix(y_test, y_pred)
+
+print(classification_report(y_test, y_pred))
+
+'''
+Precission :  Accuracy of positive prediction
+Recall : Fraction of correctly id +ve predt
+f1-score : Haromonic means of precision and recall
+Support : The no. of occurance of each in your y test 
+'''
+
+plt.title('KNN Varying number of neighbour')
+plt.plot(neighbors,test_accuracy,label='Testing Accuracy')
+plt.plot(neighbors,train_accuracy,label='Training Accuracy')
+plt.legend()
+plt.xlabel('Number of neighbors')
+plt.ylabel('Accuracy')
+plt.show()
+
+
+.................................................................................................................//PRACTICAL 5 END//......................................................................................................................
+
+
+
+
+
+.................................................................................................................//PRACTICAL 4 START//......................................................................................................................
+import numpy as np
+
+x = np.array(([2,9],[1,5],[3,6]),dtype= float)
+y = np.array(([92],[86],[89]),dtype=float)
+x = x/np.amax(x,axis=0)
+y = y/np.amax(y)
+
+def sigmoid (x):
+    return (1/(1+np.exp(-x)))
+def  derivatives_sigmoid(x):
+    return x*(1-x)
+epoch = 7000
+#epoch = 2
+lr = 0.1
+inputlayer_neurons = 2
+hiddenlayer_neurons = 3
+output_neurons = 1
+
+#wh = 2*3
+wh = np.random.uniform(size=(inputlayer_neurons,hiddenlayer_neurons))
+#bh = 1*3
+bh = np.random.uniform(size=(hiddenlayer_neurons, 1))
+#wout = 3*1
+wout = np.random.uniform(size=(hiddenlayer_neurons,output_neurons))
+#bout = 1*1
+bout = np.random.uniform(size=(output_neurons, 1))
+
+for i in range(epoch):
+    #between input layer and hiddenlayer
+    #dot product of the x and wh
+    hinpl = np.dot(x,wh)
+    hinp = hinpl + bh
+    hlayer_act = sigmoid(hinp)
+    #between hidden layer and output layer
+    #dot product of output and hidden layer
+    outinpl = np.dot(hlayer_act,wout)
+    outinp = outinpl + bout
+    output = sigmoid(outinp)
+
+    #backpropogatrion of error
+    EO = y-output
+    if i == 0:
+        print("Error",EO)
+    outgrad = derivatives_sigmoid(output)
+    d_output = EO * outgrad
+    EH = d_output.dot(wout.T)
+    hiddengrad = derivatives_sigmoid(hlayer_act)
+    
+    #weight adjustment
+    d_hiddenlayer = EH * hiddengrad
+    wout += hlayer_act.T.dot(d_output)*lr
+    
+    bout += np.sum(d_output,axis=0,keepdims=True)*lr
+    wh  += x.T.dot(d_hiddenlayer)*lr
+    
+print("Error",EO)
+print("Input : \n" + str(x))
+print("Actual output : \n" + str(y))
+print("predicted output : \n ", output)
+
+.................................................................................................................//PRACTICAL 4 END//......................................................................................................................
+
+
+.................................................................................................................//PRACTICAL 3 START//......................................................................................................................
+
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Aug  9 07:26:23 2023
+
+@author: bmm
+"""
+import numpy as np
+import pandas as pd
+from sklearn import tree
+from sklearn.preprocessing import LabelEncoder
+
+#loading the data
+PlayTennis = pd.read_csv('PlayTennis.csv')
+
+Le = LabelEncoder()
+
+PlayTennis['Outlook'] = Le.fit_transform(PlayTennis['Outlook'])
+PlayTennis['temp'] = Le.fit_transform(PlayTennis['temp'])
+PlayTennis['humidity'] = Le.fit_transform(PlayTennis['humidity'])
+PlayTennis['windy'] = Le.fit_transform(PlayTennis['windy'])
+PlayTennis['play'] = Le.fit_transform(PlayTennis['play'])
+
+print(PlayTennis)
+
+y = PlayTennis['play']
+x = PlayTennis.drop(['play'],axis = 1)
+
+clf = tree.DecisionTreeClassifier(criterion='entropy')
+clf = clf.fit(x,y)
+tree.plot_tree(clf)
+
+o = int(input("What is the outlook ? : "))
+t = int(input("What is the tempture ? : "))
+h = int(input("What is the humidity ? : "))
+w = int(input("How windy it is ? : "))
+
+#predict
+
+y_predict = clf.predict([[o,t,h,w]])
+v = "Play" if y_predict[0] == 1 else "Not Play"
+print("As per sitiution one should " ,v)
+
+.................................................................................................................//PRACTICAL 3 END//......................................................................................................................
