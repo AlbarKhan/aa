@@ -1,4 +1,88 @@
-.................................................................................................................//PRACTICAL 5 START//......................................................................................................................
+................................................................................................................//PRACTICAL 7 START//......................................................................................................................
+import numpy as np
+import pasdas as pd
+import matplotlib.pylot as plt
+from sklearn.model_selection import train_set_split
+from sklearn.sum import svc
+fromsklearn.metrics import confusion_matrix,classification_report,accuracy_score
+
+df = pd.readread_csv('diabetes.csv')
+
+x = df.drop('Outcome', axis=1)
+y = df['Outocme']
+
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size = 0.2,random_state = 42)
+
+classifier = SVC (kernel = "linear")
+classifier = fit(x_train,y_train)
+
+y_pred = classifier.predict(x_test)
+
+print('Confusion_Matrix')
+print(confusion_matrix(y-test,y-pred))
+
+
+print('Accuracy Score')
+print(accuracy_score(y_test,y_pred))
+
+print('claassification Report:')
+print(classification_report(y_test,y_pred))
+
+
+.................................................................................................................//PRACTICAL 7 END//......................................................................................................................
+
+
+
+
+.................................................................................................................//PRACTICAL 6 Start//......................................................................................................................
+
+import numpy as np import pasdas as pd
+import matplotlib.pylot as plt 
+from sklearn.model_selection import train_set
+from sklearn.naive_bayes import multinomialNB
+from sklearn.matrics import confusion_matrix
+from sklearn.metrics *
+from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import LabelEncoder
+import seaborn as sns
+
+df = pd.read_csv(diseas.csv)
+
+le = LabelENcoder()
+df['sore_throat'] = le.fit_traansform(df['sore_Throat])
+df['fever'] = le.fit_transform(df['swollenGland])
+df['congestion'] = le.fit_transform(df('congcstion'])
+df['headache'] = le.fit_transform(df['headache'])
+
+x= df.drop('Diagnosis' , axos = 1)
+y = df('Diagnosis')
+
+
+x_train,x_test,y_train,y_test = train_test_split.(x,y,test_size  = 0.2)
+
+
+classifier - MultinimialNB()
+classifier.fit(x_train,y_train)
+
+
+y_pred = classifier.predict(x_test)
+
+print('ConfusionMatrix')
+print(confusion_matrix(y_test,y_pred))
+
+print('CLassification Report')
+print(classification_repoprt(y_test,y_pred))
+
+
+
+.................................................................................................................//PRACTICAL 6 END//......................................................................................................................
+
+
+
+
+
+
+................................................................................................................//PRACTICAL 5 START//......................................................................................................................
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
