@@ -92,7 +92,7 @@ class monoalphabetic{
     }
 }
 
-
+....................................// MONOALPHABATIC END.......................//
 .........................//RAILFENCE START//..............
 
 import java.io.*;
@@ -151,10 +151,39 @@ return pt;
 }
 }
 
-
-
-
+//python code for railfence
+string=input("enter a string")
+def RailFence(txt):
+ result=""
+ for i in range(len(string)):
+ if(i%2==0):
+ result+=string[i]
+ for i in range(len(string)):
+ if(i%2!=0):
+ result += string[i]
+ return result
+print(RailFence(string)
 
 .........................//RAILFENCE END//..............
 
-....................................// MONOALPHABATIC END.......................//
+
+
+...............................//RSA ALGORIGTHM Start//..........................
+
+fromCrypto.PublicKey import RSA
+fromCrypto.Cipher import PKCS1_OAEP
+importbinascii
+keyPair = RSA.generate(1024)
+pubKey = keyPair.publickey()
+print(f"Public key: (n={hex(pubKey.n)}, e={hex(pubKey.e)})")
+pubKeyPEM = pubKey.exportKey()
+print(pubKeyPEM.decode('ascii'))
+print(f"Private key: (n={hex(pubKey.n)}, d={hex(keyPair.d)})")
+privKeyPEM = keyPair.exportKey()
+print(privKeyPEM.decode('ascii'))
+#encryption
+msg = 'Ismile Academy'
+encryptor = PKCS1_OAEP.new(pubKey)
+encrypted = encryptor.encrypt(msg)
+print("Encrypted:", binascii.hexlify(encrypted))
+...............................//RSA ALGORIGTHM End//..........................
