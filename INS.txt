@@ -187,3 +187,98 @@ encryptor = PKCS1_OAEP.new(pubKey)
 encrypted = encryptor.encrypt(msg)
 print("Encrypted:", binascii.hexlify(encrypted))
 ...............................//RSA ALGORIGTHM End//..........................
+
+
+...............................................//: Python code for implementing MD5 Algorithm Start//............................
+importhashlib
+result = hashlib.md5(b'Ismile')
+result1 = hashlib.md5(b'Esmile')
+# printing the equivalent byte value.
+print("The byte equivalent of hash is : ", end ="")
+print(result.digest())
+print("The byte equivalent of hash is : ", end ="")
+print(result1.digest()
+
+
+
+
+...............................................//: Python code for implementing MD5 Algorithm  END............................
+
+
+//........................................................Code: Python code for implementing SHA Algorithm START.............................................//
+
+fromCrypto.Signature import PKCS1_v1_5
+fromCrypto.Hash import SHA256
+fromCrypto.PublicKey import RSA
+from Crypto import Random
+defgenerate_signature(private_key, message):
+ # Load the private key
+key = RSA.importKey(private_key)
+ # Generate SHA-256 hash of the message
+hashed_message = SHA256.new(message.encode('utf-8'))
+ # Create a signature using the private key
+signer = PKCS1_v1_5.new(key)
+signature = signer.sign(hashed_message)
+return signature
+defverify_signature(public_key, message, signature):
+ # Load the public key
+key = RSA.importKey(public_key)
+ # Generate SHA-256 hash of the message
+hashed_message = SHA256.new(message.encode('utf-8'))
+ # Verify the signature using the public key
+INS Journal TYCS
+Prof. Ismail H. Popatia Page 14
+verifier = PKCS1_v1_5.new(key)
+returnverifier.verify(hashed_message, signature)
+# Generate RSA key pair
+random_generator = Random.new().read
+key_pair = RSA.generate(2048, random_generator)
+# Extract public and private keys
+public_key = key_pair.publickey().export_key()
+private_key = key_pair.export_key()
+# Example usage
+message = "Hello, World!"
+# Generate a digital signature
+signature = generate_signature(private_key, message)
+print("Generated Signature:", signature)
+# Verify the digital signature
+is_valid = verify_signature(public_key, message, signature)
+print("Signature Verification Result:", is_valid)
+
+
+
+
+: Python code for implementing SHA Algorithm
+importhashlib
+str = input(" Enter the value to encode ")
+result = hashlib.sha1(str.encode())
+print("The hexadecima equivalent if SHA1 is : ")
+print(result.hexdigest())
+
+//........................................................Code: Python code for implementing SHA Algorithm END.............................................//
+
+
+
+
+
+//........................................................Code: Python code for implementing  Diffie-Hellman Algorithm START.............................................//
+
+from random import randint
+if __name__ == '__main__':
+ P = 23
+ G = 9
+print('The Value of P is :%d'%(P))
+print('The Value of G is :%d'%(G))
+ a = 4
+print('Secret Number for Alice is :%d'%(a))
+ x = int(pow(G,a,P)) 
+ b = 6
+print('Secret Number for Bob is :%d'%(b))
+ y = int(pow(G,b,P)) 
+ka = int(pow(y,a,P))
+kb = int(pow(x,b,P))
+print('Secret key for the Alice is : %d'%(ka))
+print('Secret Key for the Bob is : %d'%(kb))
+
+
+//........................................................Code: Python code for implementing  Diffie-Hellman Algorithm END.............................................//
